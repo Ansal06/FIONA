@@ -113,14 +113,21 @@ Both variants run in $O(N \log N + M)$ time ($N$ quadrature nodes, $M$ target po
 ---
 
 ## Installation
+## Installation
 
-# 1. Environment
+Requires conda (Miniconda is enough) on Linux or WSL. macOS and native Windows are untested.
 
+```bash
+# 1. Get the repo
+git clone https://github.com/Ansal06/FIONA.git
+cd FIONA
+
+# 2. Create and activate the environment
 conda env create -f environment.yml
 conda activate fiona
 
-# 2. FINUFFT C library, installed into the environment
-
+# 3. Build FINUFFT into the environment (done outside the FIONA folder)
+cd ..
 git clone https://github.com/flatironinstitute/finufft.git
 cd finufft
 git checkout 64deec2c
@@ -129,11 +136,19 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
       -DFINUFFT_USE_OPENMP=ON -DFINUFFT_BUILD_TESTS=OFF
 cmake --build build -j
 cmake --install build
-cd ..
+cd ../FIONA
 
-# 3. FIONA (this also builds NUFHT)
+# 4. Install FIONA (this builds and installs NUFHT too)
+pip install .
 
-pip install "git+https://github.com/Ansal06/FIONA.git"
+# 5. Check it works (should print True)
+python -c "import _pynufht, fiona.axisym; print('nufht_batch' in dir(_pynufht))"
+```
+
+Notes:
+- Step 3 must be done before step 4, with the `fiona` environment active.
+- FINUFFT must be cloned in full (no `--depth 1`), since a specific commit is checked out.
+- The first run generates its own `fiona_gl_cache`.
 
 ## Quick Start
 
