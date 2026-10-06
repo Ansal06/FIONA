@@ -15,7 +15,7 @@ dependencies = [
     "numexpr>=2.7",
     "psutil>=5.0",
     "finufft>=2.1",
-    "pynufht @ git+https://github.com/Ansal06/NUFHT.git@44e42d27e195e4eeee83e856d17cc6348f9a3379#subdirectory=python",
+    "pynufht @ git+https://github.com/Ansal06/NUFHT.git@6aac67d64d6cd65cf7c0308583b367fc568b6b23#subdirectory=python",
 ]
 
 [project.optional-dependencies]

@@ -114,29 +114,26 @@ Both variants run in $O(N \log N + M)$ time ($N$ quadrature nodes, $M$ target po
 
 ## Installation
 
-FIONA depends on [FINUFFT](https://finufft.readthedocs.io/) and optionally on a compiled Non-Uniform Fast Hankel Transform extension (`_pynufht`). Install the Python dependencies first:
+# 1. Environment
 
-```bash
-pip install numpy scipy numexpr psutil finufft
-```
+conda env create -f environment.yml
+conda activate fiona
 
-Then install FIONA from source:
+# 2. FINUFFT C library, installed into the environment
 
-```bash
-git clone https://github.com/ninoephremidze/FIONA.git
-cd FIONA
-pip install -e .
-```
+git clone https://github.com/flatironinstitute/finufft.git
+cd finufft
+git checkout 64deec2c
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+      -DFINUFFT_USE_OPENMP=ON -DFINUFFT_BUILD_TESTS=OFF
+cmake --build build -j
+cmake --install build
+cd ..
 
-**Optional dependencies**
+# 3. FIONA (this also builds NUFHT)
 
-| Package | Purpose |
-|---------|---------|
-| `jax` | GPU-accelerated clumpy NFW lens (`JAXClumpyNFWLens`) |
-| `numexpr` | Vectorised expression evaluation (significant speed-up) |
-| `scipy` | FHT-based axisymmetric solver (`FresnelHankelAxisymmetricSciPy`) |
-
----
+pip install "git+https://github.com/Ansal06/FIONA.git"
 
 ## Quick Start
 
