@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# Distribution name differs from the import name to avoid clashing with the
+# unrelated GIS package "Fiona" on PyPI. You still use: import fiona
+name = "fiona-lensing"
+version = "0.1.1"
+description = "Fresnel Integral Optimization via Non-uniform trAnsforms (gravitational-wave lensing)"
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.20",
+    "scipy>=1.4",
+    "numexpr>=2.7",
+    "psutil>=5.0",
+    "finufft>=2.1",
+    "pynufht @ git+https://github.com/Ansal06/NUFHT.git@44e42d27e195e4eeee83e856d17cc6348f9a3379#subdirectory=python",
+]
+
+[project.optional-dependencies]
+jax = ["jax>=0.4"]
+
+[tool.setuptools.packages.find]
+include = ["fiona*"]
+exclude = ["tests*"]

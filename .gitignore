@@ -6,3 +6,7 @@ __pycache__/
 dist/
 build/
 .eggs/
+*:Zone.Identifier
+*.egg-info/
+fiona_gl_cache/
+*.npz
